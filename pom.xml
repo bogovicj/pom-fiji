@@ -894,6 +894,29 @@
 				</executions>
 			</plugin>
 		</plugins>
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-enforcer-plugin</artifactId>
+					<configuration>
+						<rules>
+							<banDuplicateClasses>
+								<dependencies>
+									<!-- Fall-back Java3D classes in VIB-lib -->
+									<dependency>
+										<artifactId>VIB-lib</artifactId>
+										<ignoreClasses>
+											<ignoreClass>javax/media/*</ignoreClass>
+										</ignoreClasses>
+									</dependency>
+								</dependencies>
+							</banDuplicateClasses>
+						</rules>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 
 	<mailingLists>
