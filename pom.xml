@@ -893,30 +893,46 @@
 					</execution>
 				</executions>
 			</plugin>
-		</plugins>
 
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<artifactId>maven-enforcer-plugin</artifactId>
-					<configuration>
-						<rules>
-							<banDuplicateClasses>
-								<dependencies>
-									<!-- Fall-back Java3D classes in VIB-lib -->
-									<dependency>
-										<artifactId>VIB-lib</artifactId>
-										<ignoreClasses>
-											<ignoreClass>javax/media/*</ignoreClass>
-										</ignoreClasses>
-									</dependency>
-								</dependencies>
-							</banDuplicateClasses>
-						</rules>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
+			<plugin>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<configuration>
+					<rules>
+						<banDuplicateClasses combine.children="append">
+							<dependencies>
+								<!-- Fall-back Java3D classes in VIB-lib -->
+								<dependency>
+									<artifactId>VIB-lib</artifactId>
+									<ignoreClasses>
+										<ignoreClass>javax/media/*</ignoreClass>
+									</ignoreClasses>
+								</dependency>
+								<!-- JRuby/JRuby clashes -->
+								<dependency>
+									<artifactId>jcodings</artifactId>
+									<ignoreClasses>
+										<ignoreClass>org/jcodings/*</ignoreClass>
+									</ignoreClasses>
+								</dependency>
+								<dependency>
+									<artifactId>jnr-constants</artifactId>
+									<ignoreClasses>
+										<ignoreClass>com/kenai/constantine/*</ignoreClass>
+										<ignoreClass>jnr/constants/*</ignoreClass>
+									</ignoreClasses>
+								</dependency>
+								<dependency>
+									<artifactId>jnr-ffi</artifactId>
+									<ignoreClasses>
+										<ignoreClass>jnr/ffi/*</ignoreClass>
+									</ignoreClasses>
+								</dependency>
+							</dependencies>
+						</banDuplicateClasses>
+					</rules>
+				</configuration>
+			</plugin>
+		</plugins>
 	</build>
 
 	<mailingLists>
